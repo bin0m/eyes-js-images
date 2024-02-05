@@ -13,7 +13,7 @@ env:
     APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
     APPLITOOLS_BATCH_NAME: ${{ github.ref }}
     APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
-    APPLITOOLS_BRANCH_NAME: ${{GITHUB_REPOSITORY}}/${{GITHUB_REF_NAME}}
+    APPLITOOLS_BRANCH_NAME: $GITHUB_REPOSITORY/$GITHUB_REF_NAME
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: '16.x'
       - run: npm ci
-      - name: Prepare for push event may be use BranchName=${{GITHUB_REPOSITORY}}/${{GITHUB_HEAD_REF}}
+      - name: Prepare for push event may be use BranchName=$GITHUB_REPOSITORY/$GITHUB_HEAD_REF
         run: curl -v -L -d '' -X POST "https://testeyes.applitools.com/api/externals/github/push?apiKey=${APPLITOOLS_API_KEY}&CommitSha=${GITHUB_SHA}&BranchName=${GITHUB_REPOSITORY}/${GITHUB_REF_NAME}"
       - name: Run Tests
         run: npm test
