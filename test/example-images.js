@@ -8,6 +8,8 @@ describe('Eyes-Images', () => {
     let eyes;
 
     beforeEach(() => {
+        console.log("print env vars");
+        console.log(process.env);
         eyes = new Eyes();
 
         // Initialize the eyes configuration
